@@ -9,9 +9,11 @@
                 var testqueuetable = $('#testqueue').DataTable( {
                     ajax: {
                         url: "http://localhost:8080/kafka/pull/test",
-                        dataSrc: ""
+                        dataSrc: "",
+                        order: [0, "asc"]
                     }, 
                     columns: [
+                        {data: "index"},
                         {data: "testval"}
                     ]
                 });
