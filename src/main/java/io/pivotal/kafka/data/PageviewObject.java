@@ -25,9 +25,9 @@ public class PageviewObject {
     public PageviewObject() { }
 
     public PageviewObject(long timestamp, String userId, String pageId) { 
-        this.timestamp = timestamp;
-        this.userId = userId;
-        this.pageId = pageId;
+        setTimestamp(timestamp);
+        setUserId(userId);
+        setPageId(pageId);
     }
 
     public static PageviewObject parse(String msg) {

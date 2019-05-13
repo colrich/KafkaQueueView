@@ -15,6 +15,8 @@ import io.pivotal.kafka.data.MessageObject;
 import io.pivotal.kafka.data.MessageVO;
 import io.pivotal.kafka.data.PageviewObject;
 import io.pivotal.kafka.data.PageviewVO;
+import io.pivotal.kafka.data.UserObject;
+import io.pivotal.kafka.data.UserVO;
 import io.pivotal.kafka.data.VO;
 
 @RestController
@@ -26,6 +28,9 @@ public class KafkaController {
 
     @Autowired
     private InMemoryStore<PageviewObject> pageviewQueueStore;
+
+    @Autowired
+    private InMemoryStore<UserObject> usersQueueStore;
 
     @GetMapping("/pull/{queueName}")
     public List<MessageVO> pullTestMessagesFromQueue(@PathVariable String queueName) {
@@ -43,12 +48,25 @@ public class KafkaController {
     @GetMapping("/pageviews/{queueName}")
     public List<? extends VO> pullPageviewsFromQueue(@PathVariable String queueName) {
         System.out.println("kafkacontroller::pullPageviewsFromQueue called for queue: " + queueName);
-        System.out.println("queue store capacity: " + testQueueStore.getCapacity());
+        System.out.println("queue store capacity: " + pageviewQueueStore.getCapacity());
 
         List<PageviewVO> msgs = new ArrayList<>();
         int index = 0;
         for (PageviewObject mo : pageviewQueueStore.getAllMessages()) {
             msgs.add(new PageviewVO(index++, mo));
+        }
+        return msgs;
+    }
+
+    @GetMapping("/users/{queueName}")
+    public List<? extends VO> pullUsersFromQueue(@PathVariable String queueName) {
+        System.out.println("kafkacontroller::pullUsersFromQueue called for queue: " + queueName);
+        System.out.println("queue store capacity: " + usersQueueStore.getCapacity());
+
+        List<UserVO> msgs = new ArrayList<>();
+        int index = 0;
+        for (UserObject mo : usersQueueStore.getAllMessages()) {
+            msgs.add(new UserVO(index++, mo));
         }
         return msgs;
     }

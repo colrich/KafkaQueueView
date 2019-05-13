@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import io.pivotal.kafka.data.InMemoryStore;
 import io.pivotal.kafka.data.MessageObject;
 import io.pivotal.kafka.data.PageviewObject;
+import io.pivotal.kafka.data.UserObject;
 
 @Configuration
 @Component
@@ -26,5 +27,11 @@ public class StoreConfiguration {
         return imm;
     }
 
+    @Bean
+    public InMemoryStore<UserObject> usersQueueStore() {
+        InMemoryStore<UserObject> imm = new InMemoryStore<>(UserObject.class);
+        imm.setCapacity(250);
+        return imm;
+    }
 
 }
