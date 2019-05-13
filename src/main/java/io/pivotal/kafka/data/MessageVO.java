@@ -1,6 +1,6 @@
 package io.pivotal.kafka.data;
 
-public class MessageVO {
+public class MessageVO implements VO {
     private String testval;
     public void setTestval(String testval) { this.testval = testval; }
     public String getTestval() { return testval; }
@@ -15,7 +15,7 @@ public class MessageVO {
     }
 
     public MessageVO(int index, MessageObject obj) {
-        this.index = index;
-        this.testval = obj.getTestval();
+        setIndex(index);
+        setTestval(obj.getTestval());
     }
 }

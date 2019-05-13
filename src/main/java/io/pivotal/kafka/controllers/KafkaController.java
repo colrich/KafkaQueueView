@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import io.pivotal.kafka.data.InMemoryStore;
 import io.pivotal.kafka.data.MessageObject;
 import io.pivotal.kafka.data.MessageVO;
+import io.pivotal.kafka.data.PageviewObject;
+import io.pivotal.kafka.data.PageviewVO;
+import io.pivotal.kafka.data.VO;
 
 @RestController
 @RequestMapping("kafka")
@@ -21,15 +24,31 @@ public class KafkaController {
     @Autowired
     private InMemoryStore<MessageObject> testQueueStore;
 
+    @Autowired
+    private InMemoryStore<PageviewObject> pageviewQueueStore;
+
     @GetMapping("/pull/{queueName}")
-    public List<MessageVO> pullFromQueue(@PathVariable String queueName) {
-        System.out.println("kafkacontroller::pullFromQueue called for queue: " + queueName);
-        System.out.println("testqueue capacity: " + testQueueStore.getCapacity());
+    public List<MessageVO> pullTestMessagesFromQueue(@PathVariable String queueName) {
+        System.out.println("kafkacontroller::pullTestMessagesFromQueue called for queue: " + queueName);
+        System.out.println("store capacity: " + testQueueStore.getCapacity());
 
         List<MessageVO> msgs = new ArrayList<>();
         int index = 0;
         for (MessageObject mo : testQueueStore.getAllMessages()) {
             msgs.add(new MessageVO(index++, mo.getTestval()));
+        }
+        return msgs;
+    }
+
+    @GetMapping("/pageviews/{queueName}")
+    public List<? extends VO> pullPageviewsFromQueue(@PathVariable String queueName) {
+        System.out.println("kafkacontroller::pullPageviewsFromQueue called for queue: " + queueName);
+        System.out.println("queue store capacity: " + testQueueStore.getCapacity());
+
+        List<PageviewVO> msgs = new ArrayList<>();
+        int index = 0;
+        for (PageviewObject mo : pageviewQueueStore.getAllMessages()) {
+            msgs.add(new PageviewVO(index++, mo));
         }
         return msgs;
     }
