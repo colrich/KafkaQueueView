@@ -44,6 +44,7 @@ public class PageviewObject {
                 po.setUserId(pv[1]);
                 po.setPageId(pv[2]);
             }
+            reader.close();
         }
         catch (IOException ioe) {
             ioe.printStackTrace();
