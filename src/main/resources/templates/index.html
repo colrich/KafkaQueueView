@@ -10,12 +10,16 @@
                     ajax: {
                         url: "http://localhost:8080/kafka/pull/test",
                         dataSrc: "",
-                        order: [0, "asc"]
+                        orderFixed: [0, "asc"]
                     }, 
                     columns: [
                         {data: "index"},
                         {data: "testval"}
-                    ]
+                    ],
+                    columnDefs: [
+                        { width: "15%", targets: 0 }
+                    ],
+                    fixedColumns: true
                 });
 
                 setInterval(function() {
@@ -26,8 +30,12 @@
         </script>
     </head>
     <body>
-        <table id="testqueue" class="display">
+        <table id="testqueue" class="display stripe row-border">
             <thead>
+                <tr>
+                    <th>order</th>
+                    <th>testval</th>
+                </tr>
             </thead>
             <tbody>
             </tbody>

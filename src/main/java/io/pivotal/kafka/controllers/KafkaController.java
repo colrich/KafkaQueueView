@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.pivotal.kafka.data.InMemoryStore;
 import io.pivotal.kafka.data.MessageObject;
-import io.pivotal.kafka.data.MessageStore;
 import io.pivotal.kafka.data.MessageVO;
 
 @RestController
@@ -19,7 +19,8 @@ import io.pivotal.kafka.data.MessageVO;
 public class KafkaController {
 
     @Autowired
-    private MessageStore testQueueStore;
+    private InMemoryStore<MessageObject> testQueueStore;
+//    private MessageStore testQueueStore;
 
     @GetMapping("/pull/{queueName}")
     public List<MessageVO> pullFromQueue(@PathVariable String queueName) {

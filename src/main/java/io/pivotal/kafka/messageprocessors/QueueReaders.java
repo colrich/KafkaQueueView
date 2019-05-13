@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+import io.pivotal.kafka.data.InMemoryStore;
 import io.pivotal.kafka.data.MessageObject;
 import io.pivotal.kafka.data.MessageStore;
 
@@ -11,9 +12,10 @@ import io.pivotal.kafka.data.MessageStore;
 public class QueueReaders {
 
     @Autowired
-    private MessageStore testQueueStore;
+    private InMemoryStore<MessageObject> testQueueStore;
+//    private MessageStore testQueueStore;
 
-    @KafkaListener(topics="test")
+    @KafkaListener(topics="testx")
     public void onMessageTestQueue(String content) {
         System.out.println("QueueReaders::onMessageTestQueue: called with content: " + content);
         System.out.println("QueueReaders::onMessageTestQueue: available store capacity: " + testQueueStore.getCapacity());
