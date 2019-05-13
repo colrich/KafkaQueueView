@@ -17,7 +17,7 @@
                         {data: "testval"}
                     ],
                     columnDefs: [
-                        { width: "15%", targets: 0 }
+                        { width: "5%", targets: 0 }
                     ],
                     fixedColumns: true
                 });
@@ -25,8 +25,58 @@
                 setInterval(function() {
                     testqueuetable.ajax.reload(null, false);
                 }, 2000);
-
             } );
+
+            $(document).ready( function () {
+                var pageviewtable = $('#pageviewqueue').DataTable( {
+                    ajax: {
+                        url: "http://localhost:8080/kafka/pageviews/pageviewx",
+                        dataSrc: "",
+                        orderFixed: [0, "asc"]
+                    }, 
+                    columns: [
+                        {data: "index"},
+                        {data: "timestamp"},
+                        {data: "userId"},
+                        {data: "pageId"}
+                    ],
+                    columnDefs: [
+                        { width: "5%", targets: 0 }
+                    ],
+                    fixedColumns: true
+                });
+
+                setInterval(function() {
+                    pageviewtable.ajax.reload(null, false);
+                }, 2000);
+            } );
+
+            $(document).ready( function () {
+                var userstable = $('#usersqueue').DataTable( {
+                    ajax: {
+                        url: "http://localhost:8080/kafka/users/userx",
+                        dataSrc: "",
+                        orderFixed: [0, "asc"]
+                    }, 
+                    columns: [
+                        {data: "index"},
+                        {data: "registertime"},
+                        {data: "userid"},
+                        {data: "regionid"},
+                        {data: "gender"}
+                    ],
+                    columnDefs: [
+                        { width: "5%", targets: 0 }
+                    ],
+                    fixedColumns: true
+                });
+
+                setInterval(function() {
+                    userstable.ajax.reload(null, false);
+                }, 2000);
+            } );
+
+
         </script>
     </head>
     <body>
@@ -40,5 +90,32 @@
             <tbody>
             </tbody>
         </table>
+        <table id="pageviewqueue" class="display stripe row-border">
+            <thead>
+                <tr>
+                    <th>order</th>
+                    <th>timestamp</th>
+                    <th>userId</th>
+                    <th>pageId</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <table id="usersqueue" class="display stripe row-border">
+            <thead>
+                <tr>
+                    <th>order</th>
+                    <th>registertime</th>
+                    <th>userid</th>
+                    <th>regionid</th>
+                    <th>gender</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
     </body>
 </html>
