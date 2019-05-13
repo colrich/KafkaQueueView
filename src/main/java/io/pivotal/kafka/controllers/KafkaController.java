@@ -20,7 +20,6 @@ public class KafkaController {
 
     @Autowired
     private InMemoryStore<MessageObject> testQueueStore;
-//    private MessageStore testQueueStore;
 
     @GetMapping("/pull/{queueName}")
     public List<MessageVO> pullFromQueue(@PathVariable String queueName) {

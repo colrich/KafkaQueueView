@@ -6,14 +6,12 @@ import org.springframework.stereotype.Component;
 
 import io.pivotal.kafka.data.InMemoryStore;
 import io.pivotal.kafka.data.MessageObject;
-import io.pivotal.kafka.data.MessageStore;
 
 @Component
 public class QueueReaders {
 
     @Autowired
     private InMemoryStore<MessageObject> testQueueStore;
-//    private MessageStore testQueueStore;
 
     @KafkaListener(topics="testx")
     public void onMessageTestQueue(String content) {
