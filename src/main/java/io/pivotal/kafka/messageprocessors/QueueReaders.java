@@ -12,8 +12,8 @@ import io.pivotal.kafka.data.UserObject;
 @Component
 public class QueueReaders {
 
-    @Autowired
-    private InMemoryStore<MessageObject> testQueueStore;
+//    @Autowired
+//    private InMemoryStore<MessageObject> testQueueStore;
 
     @Autowired
     private InMemoryStore<PageviewObject> pageviewQueueStore;
@@ -21,21 +21,23 @@ public class QueueReaders {
     @Autowired
     private InMemoryStore<UserObject> usersQueueStore;
 
-    @KafkaListener(topics="testx")
+/*
+    @KafkaListener(topics="test")
     public void onMessageTestQueue(String content) {
         System.out.println("QueueReaders::onMessageTestQueue: called with content: " + content);
         System.out.println("QueueReaders::onMessageTestQueue: available store capacity: " + testQueueStore.getCapacity());
         testQueueStore.addMessage(new MessageObject(content));
     }
+*/
 
-    @KafkaListener(topics="pageviewx")
+    @KafkaListener(topics="pageviews")
     public void onMessagePageviewQueue(String content) {
         System.out.println("QueueReaders::onMessagePageviewQueue: called with content: " + content);
         System.out.println("QueueReaders::onMessagePageviewQueue: available store capacity: " + pageviewQueueStore.getCapacity());
         pageviewQueueStore.addMessage(PageviewObject.parse(content));
     }
 
-    @KafkaListener(topics="usersx")
+    @KafkaListener(topics="users")
     public void onMessageUsersQueue(String content) {
         System.out.println("QueueReaders::onMessageUsersQueue: called with content: " + content);
         System.out.println("QueueReaders::onMessageUsersQueue: available store capacity: " + usersQueueStore.getCapacity());

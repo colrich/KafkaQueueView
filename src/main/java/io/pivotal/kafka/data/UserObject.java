@@ -1,6 +1,10 @@
 package io.pivotal.kafka.data;
 
+import java.io.IOException;
+import java.io.StringReader;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.opencsv.CSVReader;
 
 public class UserObject {
     private long registertime;
@@ -42,6 +46,31 @@ public class UserObject {
     public static UserObject parse(String msg) {
         UserObject user = new UserObject();
         try {
+            CSVReader reader = new CSVReader(new StringReader(msg));
+            String[] pv = reader.readNext();
+            if (pv == null) {
+                System.out.println("UserObject::parse: no values successfully read");
+            }
+            else {
+                System.out.println("UserObject::parse: csv read n values: " + pv.length);
+                user.setRegistertime(Long.parseLong(pv[0]));
+                user.setUserid(pv[1]);
+                user.setRegionid(pv[2]);
+                user.setGender(pv[3]);
+            }
+            reader.close();
+        }
+        catch (IOException ioe) {
+            ioe.printStackTrace();
+            return new UserObject();
+        }
+        return user;
+
+
+
+/*        
+        UserObject user = new UserObject();
+        try {
             user = objectMapper.readValue(msg, UserObject.class);
         }
         catch (Exception e) {
@@ -49,6 +78,7 @@ public class UserObject {
         }
 
         return user;
+*/        
     }
 
 }

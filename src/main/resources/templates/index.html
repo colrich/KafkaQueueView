@@ -5,32 +5,11 @@
         <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.4.1.js"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
         <script>
-            $(document).ready( function () {
-                var testqueuetable = $('#testqueue').DataTable( {
-                    ajax: {
-                        url: "http://localhost:8080/kafka/pull/test",
-                        dataSrc: "",
-                        orderFixed: [0, "asc"]
-                    }, 
-                    columns: [
-                        {data: "index"},
-                        {data: "testval"}
-                    ],
-                    columnDefs: [
-                        { width: "5%", targets: 0 }
-                    ],
-                    fixedColumns: true
-                });
-
-                setInterval(function() {
-                    testqueuetable.ajax.reload(null, false);
-                }, 2000);
-            } );
 
             $(document).ready( function () {
                 var pageviewtable = $('#pageviewqueue').DataTable( {
                     ajax: {
-                        url: "http://localhost:8080/kafka/pageviews/pageviewx",
+                        url: "/kafka/pageviews/pageviews",
                         dataSrc: "",
                         orderFixed: [0, "asc"]
                     }, 
@@ -48,13 +27,13 @@
 
                 setInterval(function() {
                     pageviewtable.ajax.reload(null, false);
-                }, 2000);
+                }, 1000);
             } );
 
             $(document).ready( function () {
                 var userstable = $('#usersqueue').DataTable( {
                     ajax: {
-                        url: "http://localhost:8080/kafka/users/userx",
+                        url: "/kafka/users/users",
                         dataSrc: "",
                         orderFixed: [0, "asc"]
                     }, 
@@ -73,23 +52,13 @@
 
                 setInterval(function() {
                     userstable.ajax.reload(null, false);
-                }, 2000);
+                }, 1000);
             } );
 
 
         </script>
     </head>
     <body>
-        <table id="testqueue" class="display stripe row-border">
-            <thead>
-                <tr>
-                    <th>order</th>
-                    <th>testval</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
         <table id="pageviewqueue" class="display stripe row-border">
             <thead>
                 <tr>

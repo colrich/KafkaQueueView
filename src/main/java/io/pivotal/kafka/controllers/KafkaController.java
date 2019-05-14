@@ -23,8 +23,8 @@ import io.pivotal.kafka.data.VO;
 @RequestMapping("kafka")
 public class KafkaController {
 
-    @Autowired
-    private InMemoryStore<MessageObject> testQueueStore;
+//    @Autowired
+//    private InMemoryStore<MessageObject> testQueueStore;
 
     @Autowired
     private InMemoryStore<PageviewObject> pageviewQueueStore;
@@ -32,42 +32,50 @@ public class KafkaController {
     @Autowired
     private InMemoryStore<UserObject> usersQueueStore;
 
+/*
     @GetMapping("/pull/{queueName}")
     public List<MessageVO> pullTestMessagesFromQueue(@PathVariable String queueName) {
         System.out.println("kafkacontroller::pullTestMessagesFromQueue called for queue: " + queueName);
-        System.out.println("store capacity: " + testQueueStore.getCapacity());
+        System.out.println("kafkacontroller::pullTestMessagesFromQueue store capacity: " + testQueueStore.getCapacity());
 
         List<MessageVO> msgs = new ArrayList<>();
         int index = 0;
         for (MessageObject mo : testQueueStore.getAllMessages()) {
             msgs.add(new MessageVO(index++, mo.getTestval()));
         }
+
+        System.out.println("kafkacontroller::pullTestMessagesFromQueue constructed VO list of size: " + msgs.size());
         return msgs;
     }
+*/
 
     @GetMapping("/pageviews/{queueName}")
     public List<? extends VO> pullPageviewsFromQueue(@PathVariable String queueName) {
         System.out.println("kafkacontroller::pullPageviewsFromQueue called for queue: " + queueName);
-        System.out.println("queue store capacity: " + pageviewQueueStore.getCapacity());
+        System.out.println("kafkacontroller::pullPageviewsFromQueue queue store capacity: " + pageviewQueueStore.getCapacity());
 
         List<PageviewVO> msgs = new ArrayList<>();
         int index = 0;
         for (PageviewObject mo : pageviewQueueStore.getAllMessages()) {
             msgs.add(new PageviewVO(index++, mo));
         }
+
+        System.out.println("kafkacontroller::pullPageviewsFromQueue constructed VO list of size: " + msgs.size());
         return msgs;
     }
 
     @GetMapping("/users/{queueName}")
     public List<? extends VO> pullUsersFromQueue(@PathVariable String queueName) {
         System.out.println("kafkacontroller::pullUsersFromQueue called for queue: " + queueName);
-        System.out.println("queue store capacity: " + usersQueueStore.getCapacity());
+        System.out.println("kafkacontroller::pullUsersFromQueue queue store capacity: " + usersQueueStore.getCapacity());
 
         List<UserVO> msgs = new ArrayList<>();
         int index = 0;
         for (UserObject mo : usersQueueStore.getAllMessages()) {
             msgs.add(new UserVO(index++, mo));
         }
+
+        System.out.println("kafkacontroller::pullUsersFromQueue constructed VO list of size: " + msgs.size());
         return msgs;
     }
 
