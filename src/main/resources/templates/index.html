@@ -55,6 +55,30 @@
                 }, 1000);
             } );
 
+            $(document).ready( function () {
+                var enrichedtable = $('#enrichedtopic').DataTable( {
+                    ajax: {
+                        url: "/kafka/enriched/pageviews_enriched",
+                        dataSrc: "",
+                        orderFixed: [0, "asc"]
+                    }, 
+                    columns: [
+                        {data: "index"},
+                        {data: "userId"},
+                        {data: "pageId"},
+                        {data: "regionId"},
+                        {data: "gender"}
+                    ],
+                    columnDefs: [
+                        { width: "5%", targets: 0 }
+                    ],
+                    fixedColumns: true
+                });
+
+                setInterval(function() {
+                    enrichedtable.ajax.reload(null, false);
+                }, 1000);
+            } );
 
         </script>
     </head>
@@ -86,5 +110,18 @@
             </tbody>
         </table>
 
+        <table id="enrichedtopic" class="display stripe row-border">
+            <thead>
+                <tr>
+                    <th>order</th>
+                    <th>userId</th>
+                    <th>pageId</th>
+                    <th>regionId</th>
+                    <th>gender</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </body>
 </html>

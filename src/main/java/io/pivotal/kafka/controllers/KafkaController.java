@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.pivotal.kafka.data.EnrichedPageviewObject;
+import io.pivotal.kafka.data.EnrichedPageviewVO;
 import io.pivotal.kafka.data.InMemoryStore;
 import io.pivotal.kafka.data.MessageObject;
 import io.pivotal.kafka.data.MessageVO;
@@ -28,6 +30,9 @@ public class KafkaController {
 
     @Autowired
     private InMemoryStore<PageviewObject> pageviewQueueStore;
+
+    @Autowired
+    private InMemoryStore<EnrichedPageviewObject> enrichedPageviewQueueStore;
 
     @Autowired
     private InMemoryStore<UserObject> usersQueueStore;
@@ -76,6 +81,21 @@ public class KafkaController {
         }
 
         System.out.println("kafkacontroller::pullUsersFromQueue constructed VO list of size: " + msgs.size());
+        return msgs;
+    }
+
+    @GetMapping("/enriched/{queueName}")
+    public List<? extends VO> pullEnrichedPageviewsFromQueue(@PathVariable String queueName) {
+        System.out.println("kafkacontroller::pullEnrichedPageviewsFromQueue called for queue: " + queueName);
+        System.out.println("kafkacontroller::pullEnrichedPageviewsFromQueue queue store capacity: " + enrichedPageviewQueueStore.getCapacity());
+
+        List<EnrichedPageviewVO> msgs = new ArrayList<>();
+        int index = 0;
+        for (EnrichedPageviewObject mo : enrichedPageviewQueueStore.getAllMessages()) {
+            msgs.add(new EnrichedPageviewVO(index++, mo));
+        }
+
+        System.out.println("kafkacontroller::pullEnrichedPageviewsFromQueue constructed VO list of size: " + msgs.size());
         return msgs;
     }
 
