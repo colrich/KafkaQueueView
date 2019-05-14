@@ -3,7 +3,7 @@ package io.pivotal.kafka.data;
 import java.io.IOException;
 import java.io.StringReader;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencsv.CSVReader;
 
 public class UserObject {
@@ -37,11 +37,6 @@ public class UserObject {
         setGender(gender);
     }
 
-    private static ObjectMapper objectMapper;
-    
-    static {
-        objectMapper = new ObjectMapper();
-    }
 
     public static UserObject parse(String msg) {
         UserObject user = new UserObject();
@@ -65,10 +60,18 @@ public class UserObject {
             return new UserObject();
         }
         return user;
+    }
 
 
 
 /*        
+    private static ObjectMapper objectMapper;
+    
+    static {
+        objectMapper = new ObjectMapper();
+    }
+
+    private static UserObject parse(String msg) {
         UserObject user = new UserObject();
         try {
             user = objectMapper.readValue(msg, UserObject.class);
@@ -78,7 +81,7 @@ public class UserObject {
         }
 
         return user;
-*/        
     }
+*/
 
 }

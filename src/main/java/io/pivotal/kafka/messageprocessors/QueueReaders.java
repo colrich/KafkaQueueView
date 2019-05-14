@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import io.pivotal.kafka.data.EnrichedPageviewObject;
 import io.pivotal.kafka.data.InMemoryStore;
-import io.pivotal.kafka.data.MessageObject;
+//import io.pivotal.kafka.data.MessageObject;
 import io.pivotal.kafka.data.PageviewObject;
 import io.pivotal.kafka.data.UserObject;
 
