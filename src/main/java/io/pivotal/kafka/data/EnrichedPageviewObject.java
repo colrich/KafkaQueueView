@@ -46,10 +46,10 @@ public class EnrichedPageviewObject {
             }
             else {
                 System.out.println("EnrichedPageviewObject::parse: csv read n values: " + pv.length);
-                po.setUserId(pv[0]);
+                po.setGender(pv[0]);
                 po.setPageId(pv[1]);
                 po.setRegionId(pv[2]);
-                po.setGender(pv[3]);
+                po.setUserId(pv[3]);
             }
             reader.close();
         }
