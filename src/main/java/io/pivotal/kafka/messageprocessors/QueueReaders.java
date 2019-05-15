@@ -41,7 +41,7 @@ public class QueueReaders {
         pageviewQueueStore.addMessage(PageviewObject.parse(content));
     }
 
-    @KafkaListener(topics="pageviews_enriched")
+    @KafkaListener(topics="PAGEVIEWS_ENRICHED")
     public void onMessageEnrichedPageviewQueue(String content) {
         System.out.println("QueueReaders::onMessageEnrichedPageviewQueue: called with content: " + content);
         System.out.println("QueueReaders::onMessageEnrichedPageviewQueue: available store capacity: " + enrichedPageviewQueueStore.getCapacity());
